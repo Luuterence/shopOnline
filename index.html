@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StyleMart - Clothing Store</title>
+    <title>Cloud Dimensions - Clothing Store</title>
 
     <!-- ===================== CSS ===================== -->
     <style>
+        :root {
+            --primary-black: #000000;
+            --primary-blue: #6bb6ff; /* sampled from logo */
+            --dark-bg: #111111;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -15,52 +21,56 @@
 
         /* ---------- HEADER ---------- */
         header {
-            background: #111;
+            background: var(--dark-bg);
             color: white;
-            padding: 20px 40px;
+            padding: 10px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 3px solid var(--primary-blue);
         }
 
-        header h1 {
-            letter-spacing: 2px;
+        header img {
+            height: 70px;
         }
 
         nav a {
-            color: white;
+            color: var(--primary-blue);
             text-decoration: none;
             margin-left: 25px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: white;
         }
 
         .header-right button {
-            background: #fff;
+            background: var(--primary-blue);
             border: none;
-            padding: 8px 15px;
+            color: #000;
+            padding: 10px 15px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: bold;
+            border-radius: 5px;
         }
 
         /* ---------- HERO ---------- */
         .hero {
-            background: url('https://via.placeholder.com/1500x500?text=Fashion+Banner');
-            height: 450px;
+            background: url('https://via.placeholder.com/1500x500/000000/6bb6ff?text=Cloud+Dimensions+Fashion+Banner');
+            height: 420px;
             background-size: cover;
             background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            text-shadow: 2px 2px 5px black;
+            color: var(--primary-blue);
+            text-shadow: 0px 0px 10px black;
+            border-bottom: 4px solid var(--primary-blue);
         }
 
         .hero h2 {
-            font-size: 50px;
+            font-size: 48px;
         }
 
         /* ---------- PRODUCT SECTIONS ---------- */
@@ -70,6 +80,9 @@
 
         section h2 {
             margin-bottom: 20px;
+            color: var(--dark-bg);
+            border-left: 6px solid var(--primary-blue);
+            padding-left: 10px;
         }
 
         .product-grid {
@@ -82,6 +95,7 @@
             background: #fff;
             padding: 15px;
             border-radius: 8px;
+            border: 2px solid var(--primary-blue);
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
@@ -94,17 +108,21 @@
         .product button {
             margin-top: 10px;
             padding: 10px 20px;
-            background: #111;
-            color: #fff;
+            background: var(--primary-blue);
+            color: black;
+            font-weight: bold;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
 
         .product button:hover {
-            background: #333;
+            background: black;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
         }
 
-        /* ---------- CART POPUP ---------- */
+        /* ---------- CART PANEL ---------- */
         #cart {
             position: fixed;
             right: -400px;
@@ -117,23 +135,11 @@
             transition: 0.4s;
             overflow-y: auto;
             z-index: 9999;
+            border-left: 4px solid var(--primary-blue);
         }
 
         #cart.open {
             right: 0;
-        }
-
-        #cart h2 {
-            margin-top: 0;
-        }
-
-        .cart-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .cart-item p {
-            margin: 5px 0;
         }
 
         #closeCart {
@@ -161,10 +167,7 @@
             padding: 25px;
             width: 300px;
             border-radius: 8px;
-        }
-
-        .modal-content h3 {
-            margin-top: 0;
+            border: 3px solid var(--primary-blue);
         }
 
         .modal-content input {
@@ -176,19 +179,22 @@
         .modal-content button {
             width: 100%;
             padding: 10px;
-            background: #111;
-            color: white;
+            background: var(--primary-blue);
             border: none;
+            color: black;
+            font-weight: bold;
             cursor: pointer;
+            border-radius: 5px;
         }
 
         /* ---------- FOOTER ---------- */
         footer {
-            background: #111;
-            color: white;
+            background: var(--dark-bg);
+            color: var(--primary-blue);
             text-align: center;
             padding: 20px;
             margin-top: 40px;
+            border-top: 3px solid var(--primary-blue);
         }
     </style>
 </head>
@@ -197,7 +203,7 @@
 
     <!-- ===================== HEADER ===================== -->
     <header>
-        <h1>StyleMart</h1>
+        <img src="/mnt/data/IMG_2879.JPG" alt="Cloud Dimensions Logo">
 
         <nav>
             <a href="#men">Men</a>
@@ -214,12 +220,12 @@
 
     <!-- ===================== HERO ===================== -->
     <div class="hero">
-        <h2>Winter Collection 2025</h2>
+        <h2>Cloud Dimensions • Clothing Collection</h2>
     </div>
 
-    <!-- ===================== PRODUCT SECTIONS ===================== -->
+    <!-- ===================== PRODUCT SECTIONS (Men, Women, Kids, Accessories) ===================== -->
+    <!-- (Same content as previous response; only styling changed, so not repeating the explanation) -->
 
-    <!-- MEN -->
     <section id="men">
         <h2>Men's Collection</h2>
         <div class="product-grid">
@@ -238,9 +244,8 @@
         </div>
     </section>
 
-    <!-- WOMEN -->
     <section id="women">
-        <h2>Women’s Collection</h2>
+        <h2>Women's Collection</h2>
         <div class="product-grid">
             <div class="product">
                 <img src="https://via.placeholder.com/300x350?text=Dress">
@@ -250,7 +255,7 @@
             </div>
 
             <div class="product">
-                <img src="https://via.placeholder.com/300x350?text=Women+Coat">
+                <img src="https://via.placeholder.com/300x350?text=Coat">
                 <h3>Women Coat</h3>
                 <p>$95</p>
                 <button onclick="addToCart('Women Coat', 95)">Add to Cart</button>
@@ -258,7 +263,6 @@
         </div>
     </section>
 
-    <!-- KIDS -->
     <section id="kids">
         <h2>Kids Collection</h2>
         <div class="product-grid">
@@ -278,7 +282,6 @@
         </div>
     </section>
 
-    <!-- ACCESSORIES -->
     <section id="accessories">
         <h2>Accessories</h2>
         <div class="product-grid">
@@ -298,7 +301,7 @@
         </div>
     </section>
 
-    <!-- ===================== CART SIDE PANEL ===================== -->
+    <!-- ===================== CART PANEL ===================== -->
     <div id="cart">
         <span id="closeCart" onclick="toggleCart()">Close ✖</span>
         <h2>Your Cart</h2>
@@ -306,7 +309,7 @@
         <h3>Total: $<span id="totalPrice">0</span></h3>
     </div>
 
-    <!-- ===================== LOGIN / SIGNUP MODAL ===================== -->
+    <!-- ===================== LOGIN / SIGNUP MODALS ===================== -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <h3>Login</h3>
@@ -362,7 +365,6 @@
             document.getElementById("cart").classList.toggle("open");
         }
 
-        // LOGIN / SIGNUP
         function openLogin() {
             document.getElementById("loginModal").style.display = "flex";
         }
@@ -372,7 +374,6 @@
             document.getElementById("loginModal").style.display = "none";
         }
 
-        // Close modals when clicking outside
         window.onclick = function(e) {
             if (e.target.classList.contains("modal")) {
                 e.target.style.display = "none";
@@ -382,7 +383,7 @@
 
     <!-- ===================== FOOTER ===================== -->
     <footer>
-        © 2025 StyleMart | All Rights Reserved
+        © 2025 Cloud Dimensions | The Smoke of Wealth
     </footer>
 
 </body>
