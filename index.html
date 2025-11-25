@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StyleMart - Online Clothing Store</title>
+    <title>StyleMart - Clothing Store</title>
+
+    <!-- ===================== CSS ===================== -->
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            background: #f4f4f4;
         }
 
-        /* Header */
+        /* ---------- HEADER ---------- */
         header {
             background: #111;
             color: white;
             padding: 20px 40px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
@@ -32,126 +34,353 @@
             font-weight: 500;
         }
 
-        /* Hero Section */
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .header-right button {
+            background: #fff;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* ---------- HERO ---------- */
         .hero {
-            background: url('https://via.placeholder.com/1500x500?text=Fashion+Banner') center/cover no-repeat;
+            background: url('https://via.placeholder.com/1500x500?text=Fashion+Banner');
             height: 450px;
+            background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
             color: white;
+            text-shadow: 2px 2px 5px black;
         }
 
         .hero h2 {
             font-size: 50px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
         }
 
-        /* Product Section */
-        .products {
+        /* ---------- PRODUCT SECTIONS ---------- */
+        section {
             padding: 40px;
+        }
+
+        section h2 {
+            margin-bottom: 20px;
+        }
+
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 25px;
         }
 
-        .product-card {
-            background: white;
+        .product {
+            background: #fff;
+            padding: 15px;
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .product-card img {
+        .product img {
             width: 100%;
+            border-radius: 6px;
         }
 
-        .product-card h3 {
-            margin: 15px 0 5px 0;
-        }
-
-        .product-card p {
-            color: gray;
-            margin: 0;
-        }
-
-        .product-card button {
+        .product button {
+            margin-top: 10px;
+            padding: 10px 20px;
             background: #111;
-            color: white;
-            padding: 12px 25px;
+            color: #fff;
             border: none;
-            margin: 15px 0 20px 0;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .product-card button:hover {
+        .product button:hover {
             background: #333;
         }
 
-        /* Footer */
+        /* ---------- CART POPUP ---------- */
+        #cart {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 350px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+            padding: 20px;
+            transition: 0.4s;
+            overflow-y: auto;
+            z-index: 9999;
+        }
+
+        #cart.open {
+            right: 0;
+        }
+
+        #cart h2 {
+            margin-top: 0;
+        }
+
+        .cart-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item p {
+            margin: 5px 0;
+        }
+
+        #closeCart {
+            cursor: pointer;
+            color: red;
+            font-weight: bold;
+        }
+
+        /* ---------- LOGIN / SIGNUP MODAL ---------- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 25px;
+            width: 300px;
+            border-radius: 8px;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 10px;
+            background: #111;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* ---------- FOOTER ---------- */
         footer {
             background: #111;
             color: white;
-            padding: 20px;
             text-align: center;
+            padding: 20px;
             margin-top: 40px;
         }
     </style>
 </head>
+
 <body>
 
-    <!-- Header -->
+    <!-- ===================== HEADER ===================== -->
     <header>
-        <h1>Lufuno</h1>
+        <h1>StyleMart</h1>
+
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Men</a>
-            <a href="#">Women</a>
-            <a href="#">Kids</a>
-            <a href="#">Contact</a>
+            <a href="#men">Men</a>
+            <a href="#women">Women</a>
+            <a href="#kids">Kids</a>
+            <a href="#accessories">Accessories</a>
         </nav>
+
+        <div class="header-right">
+            <button onclick="openLogin()">Login</button>
+            <button onclick="toggleCart()">Cart 🛒</button>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h2>New Winter Collection 2025</h2>
-    </section>
+    <!-- ===================== HERO ===================== -->
+    <div class="hero">
+        <h2>Winter Collection 2025</h2>
+    </div>
 
-    <!-- Products -->
-    <section class="products">
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x350?text=Hoodie" alt="Hoodie">
-            <h3>Classic Hoodie</h3>
-            <p>$45.00</p>
-            <button>Add to Cart</button>
-        </div>
+    <!-- ===================== PRODUCT SECTIONS ===================== -->
 
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x350?text=Jacket" alt="Jacket">
-            <h3>Leather Jacket</h3>
-            <p>$120.00</p>
-            <button>Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x350?text=T-Shirt" alt="T-shirt">
-            <h3>Cotton T-Shirt</h3>
-            <p>$25.00</p>
-            <button>Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x350?text=Jeans" alt="Jeans">
-            <h3>Blue Denim Jeans</h3>
-            <p>$60.00</p>
-            <button>Add to Cart</button>
+    <!-- MEN -->
+    <section id="men">
+        <h2>Men's Collection</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="https://via.placeholder.com/300x350?text=Men+Hoodie">
+                <h3>Men's Hoodie</h3>
+                <p>$45</p>
+                <button onclick="addToCart('Men Hoodie', 45)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/300x350?text=Jacket">
+                <h3>Leather Jacket</h3>
+                <p>$120</p>
+                <button onclick="addToCart('Leather Jacket', 120)">Add to Cart</button>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- WOMEN -->
+    <section id="women">
+        <h2>Women’s Collection</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="https://via.placeholder.com/300x350?text=Dress">
+                <h3>Summer Dress</h3>
+                <p>$55</p>
+                <button onclick="addToCart('Summer Dress', 55)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://via.placeholder.com/300x350?text=Women+Coat">
+                <h3>Women Coat</h3>
+                <p>$95</p>
+                <button onclick="addToCart('Women Coat', 95)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- KIDS -->
+    <section id="kids">
+        <h2>Kids Collection</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="https://via.placeholder.com/300x350?text=Kids+Shirt">
+                <h3>Kids Shirt</h3>
+                <p>$25</p>
+                <button onclick="addToCart('Kids Shirt', 25)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://via.placeholder.com/300x350?text=Kids+Hoodie">
+                <h3>Kids Hoodie</h3>
+                <p>$30</p>
+                <button onclick="addToCart('Kids Hoodie', 30)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACCESSORIES -->
+    <section id="accessories">
+        <h2>Accessories</h2>
+        <div class="product-grid">
+            <div class="product">
+                <img src="https://via.placeholder.com/300x350?text=Watch">
+                <h3>Wrist Watch</h3>
+                <p>$70</p>
+                <button onclick="addToCart('Wrist Watch', 70)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="https://via.placeholder.com/300x350?text=Sunglasses">
+                <h3>Sunglasses</h3>
+                <p>$35</p>
+                <button onclick="addToCart('Sunglasses', 35)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CART SIDE PANEL ===================== -->
+    <div id="cart">
+        <span id="closeCart" onclick="toggleCart()">Close ✖</span>
+        <h2>Your Cart</h2>
+        <div id="cartItems"></div>
+        <h3>Total: $<span id="totalPrice">0</span></h3>
+    </div>
+
+    <!-- ===================== LOGIN / SIGNUP MODAL ===================== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h3>Login</h3>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button>Login</button>
+            <p style="text-align:center;margin-top:10px;">
+                No account? <a href="#" onclick="openSignup()">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <h3>Create Account</h3>
+            <input type="text" placeholder="Full Name">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button>Sign Up</button>
+        </div>
+    </div>
+
+    <!-- ===================== JAVASCRIPT ===================== -->
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+            alert(name + " added to cart!");
+        }
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById("cartItems");
+            cartItemsDiv.innerHTML = "";
+
+            let total = 0;
+
+            cart.forEach(item => {
+                total += item.price;
+                cartItemsDiv.innerHTML += `
+                    <div class="cart-item">
+                        <p><strong>${item.name}</strong></p>
+                        <p>$${item.price}</p>
+                    </div>
+                `;
+            });
+
+            document.getElementById("totalPrice").textContent = total;
+        }
+
+        function toggleCart() {
+            document.getElementById("cart").classList.toggle("open");
+        }
+
+        // LOGIN / SIGNUP
+        function openLogin() {
+            document.getElementById("loginModal").style.display = "flex";
+        }
+
+        function openSignup() {
+            document.getElementById("signupModal").style.display = "flex";
+            document.getElementById("loginModal").style.display = "none";
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(e) {
+            if (e.target.classList.contains("modal")) {
+                e.target.style.display = "none";
+            }
+        }
+    </script>
+
+    <!-- ===================== FOOTER ===================== -->
     <footer>
         © 2025 StyleMart | All Rights Reserved
     </footer>
