@@ -5,137 +5,338 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cloud Dimensions - Clothing Store</title>
 
-    <!-- ===================== CSS ===================== -->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap');
+
         :root {
             --primary-black: #000000;
-            --primary-blue: #6bb6ff; /* sampled from logo */
-            --dark-bg: #111111;
+            --primary-blue: #6bb6ff;
+            --neon-blue: #00d4ff;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: white;
+            overflow-x: hidden;
         }
 
-        /* ---------- HEADER ---------- */
+        /* Animated background particles */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        /* Header with glassmorphism */
         header {
-            background: var(--dark-bg);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
             color: white;
-            padding: 10px 30px;
+            padding: 15px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid var(--primary-blue);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(107, 182, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
         }
 
         header img {
-            height: 70px;
+            height: 80px;
+            filter: drop-shadow(0 0 10px var(--primary-blue));
+            transition: transform 0.3s ease;
+        }
+
+        header img:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
         }
 
         nav a {
             color: var(--primary-blue);
             text-decoration: none;
-            margin-left: 25px;
             font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--neon-blue));
+            transition: width 0.3s ease;
         }
 
         nav a:hover {
-            color: white;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
         }
 
         .header-right button {
-            background: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue), var(--neon-blue));
             border: none;
             color: #000;
-            padding: 10px 15px;
+            padding: 12px 25px;
             cursor: pointer;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 25px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(107, 182, 255, 0.4);
         }
 
-        /* ---------- HERO ---------- */
+        .header-right button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(107, 182, 255, 0.6);
+        }
+
+        /* Hero Section with Parallax Effect */
         .hero {
-            background: url('https://via.placeholder.com/1500x500/000000/6bb6ff?text=Cloud+Dimensions+Fashion+Banner');
-            height: 420px;
-            background-size: cover;
-            background-position: center;
+            position: relative;
+            height: 500px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--primary-blue);
-            text-shadow: 0px 0px 10px black;
-            border-bottom: 4px solid var(--primary-blue);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(26, 26, 46, 0.7)), 
+                        url('https://via.placeholder.com/1500x500/000000/6bb6ff?text=Cloud+Dimensions+Fashion+Banner');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(107, 182, 255, 0.2) 0%, transparent 70%);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
         .hero h2 {
-            font-size: 48px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, #fff, var(--primary-blue), var(--neon-blue), #fff);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-flow 3s ease infinite;
+            text-shadow: 0 0 30px rgba(107, 182, 255, 0.5);
+            z-index: 1;
         }
 
-        /* ---------- PRODUCT SECTIONS ---------- */
+        @keyframes gradient-flow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Section Styling */
         section {
-            padding: 40px;
+            padding: 60px 50px;
+            position: relative;
+            z-index: 1;
         }
 
         section h2 {
-            margin-bottom: 20px;
-            color: var(--dark-bg);
-            border-left: 6px solid var(--primary-blue);
-            padding-left: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
         }
 
+        section h2::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 60px;
+            background: linear-gradient(180deg, var(--primary-blue), var(--neon-blue));
+            box-shadow: 0 0 20px var(--primary-blue);
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), transparent);
+        }
+
+        /* Product Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .product {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px solid var(--primary-blue);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(107, 182, 255, 0.2);
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(107, 182, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .product:hover::before {
+            left: 100%;
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+            border-color: rgba(107, 182, 255, 0.6);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 40px rgba(107, 182, 255, 0.4);
         }
 
         .product img {
             width: 100%;
-            border-radius: 6px;
+            border-radius: 10px;
+            transition: transform 0.4s ease;
+        }
+
+        .product:hover img {
+            transform: scale(1.1);
+        }
+
+        .product h3 {
+            margin: 15px 0 10px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .product p {
+            color: var(--primary-blue);
+            font-size: 24px;
+            font-weight: 700;
+            margin: 10px 0;
         }
 
         .product button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background: var(--primary-blue);
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--neon-blue));
             color: black;
             font-weight: bold;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
         }
 
         .product button:hover {
-            background: black;
-            color: var(--primary-blue);
-            border: 1px solid var(--primary-blue);
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(107, 182, 255, 0.6);
         }
 
-        /* ---------- CART PANEL ---------- */
+        /* Cart Panel */
         #cart {
             position: fixed;
-            right: -400px;
+            right: -420px;
             top: 0;
-            width: 350px;
+            width: 380px;
             height: 100vh;
-            background: #fff;
-            box-shadow: -2px 0 10px rgba(0,0,0,0.2);
-            padding: 20px;
-            transition: 0.4s;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            box-shadow: -5px 0 30px rgba(107, 182, 255, 0.3);
+            padding: 30px;
+            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             overflow-y: auto;
             z-index: 9999;
-            border-left: 4px solid var(--primary-blue);
+            border-left: 1px solid rgba(107, 182, 255, 0.3);
         }
 
         #cart.open {
@@ -144,11 +345,34 @@
 
         #closeCart {
             cursor: pointer;
-            color: red;
+            color: #ff4444;
             font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s ease;
         }
 
-        /* ---------- LOGIN / SIGNUP MODAL ---------- */
+        #closeCart:hover {
+            color: #ff6666;
+            text-shadow: 0 0 10px #ff4444;
+        }
+
+        #cart h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-blue);
+            margin: 20px 0;
+        }
+
+        .cart-item {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(107, 182, 255, 0.2);
+        }
+
+        /* Modal Styling */
         .modal {
             display: none;
             position: fixed;
@@ -157,51 +381,114 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: #fff;
-            padding: 25px;
-            width: 300px;
-            border-radius: 8px;
-            border: 3px solid var(--primary-blue);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            padding: 40px;
+            width: 350px;
+            border-radius: 20px;
+            border: 1px solid rgba(107, 182, 255, 0.3);
+            box-shadow: 0 10px 50px rgba(107, 182, 255, 0.4);
+        }
+
+        .modal-content h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .modal-content input {
             width: 100%;
-            padding: 10px;
-            margin: 8px 0;
+            padding: 12px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(107, 182, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-content input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(107, 182, 255, 0.3);
         }
 
         .modal-content button {
             width: 100%;
-            padding: 10px;
-            background: var(--primary-blue);
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--neon-blue));
             border: none;
             color: black;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 25px;
+            margin-top: 15px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
         }
 
-        /* ---------- FOOTER ---------- */
+        .modal-content button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(107, 182, 255, 0.6);
+        }
+
+        .modal-content a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .modal-content a:hover {
+            color: var(--neon-blue);
+        }
+
+        /* Footer */
         footer {
-            background: var(--dark-bg);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
             color: var(--primary-blue);
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-top: 3px solid var(--primary-blue);
+            padding: 30px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(107, 182, 255, 0.3);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-blue), var(--neon-blue));
+            border-radius: 10px;
         }
     </style>
 </head>
 
 <body>
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
 
-    <!-- ===================== HEADER ===================== -->
+    <!-- Header -->
     <header>
         <img src="/mnt/data/IMG_2879.JPG" alt="Cloud Dimensions Logo">
 
@@ -218,14 +505,12 @@
         </div>
     </header>
 
-    <!-- ===================== HERO ===================== -->
+    <!-- Hero -->
     <div class="hero">
         <h2>Cloud Dimensions • Clothing Collection</h2>
     </div>
 
-    <!-- ===================== PRODUCT SECTIONS (Men, Women, Kids, Accessories) ===================== -->
-    <!-- (Same content as previous response; only styling changed, so not repeating the explanation) -->
-
+    <!-- Product Sections -->
     <section id="men">
         <h2>Men's Collection</h2>
         <div class="product-grid">
@@ -253,7 +538,6 @@
                 <p>$55</p>
                 <button onclick="addToCart('Summer Dress', 55)">Add to Cart</button>
             </div>
-
             <div class="product">
                 <img src="https://via.placeholder.com/300x350?text=Coat">
                 <h3>Women Coat</h3>
@@ -272,7 +556,6 @@
                 <p>$25</p>
                 <button onclick="addToCart('Kids Shirt', 25)">Add to Cart</button>
             </div>
-
             <div class="product">
                 <img src="https://via.placeholder.com/300x350?text=Kids+Hoodie">
                 <h3>Kids Hoodie</h3>
@@ -291,7 +574,6 @@
                 <p>$70</p>
                 <button onclick="addToCart('Wrist Watch', 70)">Add to Cart</button>
             </div>
-
             <div class="product">
                 <img src="https://via.placeholder.com/300x350?text=Sunglasses">
                 <h3>Sunglasses</h3>
@@ -301,7 +583,7 @@
         </div>
     </section>
 
-    <!-- ===================== CART PANEL ===================== -->
+    <!-- Cart Panel -->
     <div id="cart">
         <span id="closeCart" onclick="toggleCart()">Close ✖</span>
         <h2>Your Cart</h2>
@@ -309,7 +591,7 @@
         <h3>Total: $<span id="totalPrice">0</span></h3>
     </div>
 
-    <!-- ===================== LOGIN / SIGNUP MODALS ===================== -->
+    <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <h3>Login</h3>
@@ -322,6 +604,7 @@
         </div>
     </div>
 
+    <!-- Signup Modal -->
     <div class="modal" id="signupModal">
         <div class="modal-content">
             <h3>Create Account</h3>
@@ -332,14 +615,47 @@
         </div>
     </div>
 
-    <!-- ===================== JAVASCRIPT ===================== -->
+    <!-- JavaScript -->
     <script>
+        // Create animated background particles
+        const bgAnimation = document.getElementById('bgAnimation');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            bgAnimation.appendChild(particle);
+        }
+
         let cart = [];
 
         function addToCart(name, price) {
             cart.push({ name, price });
             updateCart();
-            alert(name + " added to cart!");
+            
+            // Custom alert notification
+            const notification = document.createElement('div');
+            notification.textContent = name + " added to cart!";
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: linear-gradient(135deg, var(--primary-blue), var(--neon-blue));
+                color: black;
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-weight: bold;
+                z-index: 10000;
+                animation: slideIn 0.5s ease;
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.5s ease';
+                setTimeout(() => notification.remove(), 500);
+            }, 2000);
         }
 
         function updateCart() {
@@ -381,7 +697,7 @@
         }
     </script>
 
-    <!-- ===================== FOOTER ===================== -->
+    <!-- Footer -->
     <footer>
         © 2025 Cloud Dimensions | The Smoke of Wealth
     </footer>
